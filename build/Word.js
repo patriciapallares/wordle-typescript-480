@@ -21,6 +21,10 @@ export class Word {
     set words(wordsArray) {
         __classPrivateFieldSet(this, _Word_words, wordsArray, "f");
     }
+    /**
+     *
+     * @returns palabra aleatoria de un conjunto de palabras almacenadas en un arreglo
+     */
     getRandomWord() {
         const min = 0;
         const max = __classPrivateFieldGet(this, _Word_words, "f").length - 1;

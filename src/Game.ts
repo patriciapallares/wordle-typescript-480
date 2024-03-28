@@ -14,6 +14,7 @@ export class Game {
         this.#turn = 1;
         this.#actualPosition = 0;
         this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
+        // No se debería instanciar aquí. Debería ser en script.ts y pasarlo por parámetro
         this.#userInterface = new UIChanger();
     }
 
@@ -58,24 +59,41 @@ export class Game {
     set interface(i) {
         this.#userInterface = i;
     }
+
+    // métodos de la clase Game
     
+    // related to: key
     isValidLetter(code: string):boolean {
-        
         return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE;
      }
-
+    // related to: key
     isEnterKey(code: string):boolean {
         return code=="Enter";
     }
-
+    // related to: key
     isBackspaceKey(code: string):boolean{
         return code=="Backspace";
     }
 
+
+    /**
+     * Toma un código como entrada y devuelve una letra como salida, según algunas reglas de transformación.
+     * 
+     * letter = code.split("y")[1]: Divide la cadena code en partes usando el carácter "y" como separador (split("y")). 
+     * Luego, toma la segunda parte ([1]) del resultado y la asigna a la variable letter. Esto significa que si el código 
+     * no es "Semicolon", se espera que tenga el formato "algo_y_letra". Por lo tanto, la letra se extraerá de la parte 
+     * después de "y".
+     */
     transformCodeToLetter(code: string):string{
         let letter: string = "";
-        if (code=="Semicolon") letter = "Ñ";
-        else letter = code.split("y")[1];
+        if (code=="Semicolon") {
+            letter = "Ñ"
+        }
+        else{          
+            letter = code.split("y")[1]
+            console.log("letter: "+ letter);
+            
+        };
         return letter;
     }
 
@@ -156,7 +174,7 @@ export class Game {
             location.assign("/loser");
         }
     }
-
+    // related to: key
     enterPressed():void{
         if (this.#actualWord.length == MAX_WORD_SIZE){
             this.checkWordIsRight();
@@ -164,15 +182,17 @@ export class Game {
             this.updateAfterANewWord();
         }
     }
-
+    // related to: key
     backspacePressed():void{
         if (this.#actualPosition > 0) {
             this.#actualPosition -= 1;
             this.#userInterface.deleteLetter(this.#turn, this.#actualPosition);
         }
     }
-
+    // related to: key
     newKeyPressed(code: string):void{ 
+        console.log(code);
+        
         if (this.isValidLetter(code)) this.newLetter(code);
         if (this.isEnterKey(code)) this.enterPressed();
         if (this.isBackspaceKey(code)) this.backspacePressed();

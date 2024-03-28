@@ -12,6 +12,11 @@ export class Word {
         this.#words = wordsArray;
     }
 
+    /**
+     * 
+     * @returns palabra aleatoria de un conjunto de palabras almacenadas en un arreglo
+     */
+    
     getRandomWord():string {
         const min = 0;
         const max = this.#words.length-1;

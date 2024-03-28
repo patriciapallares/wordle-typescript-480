@@ -81,6 +81,7 @@ export class Game {
         __classPrivateFieldSet(this, _Game_turn, 1, "f");
         __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
         __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
+        // No se debería instanciar aquí. Debería ser en script.ts y pasarlo por parámetro
         __classPrivateFieldSet(this, _Game_userInterface, new UIChanger(), "f");
     }
     get pickedWord() {
@@ -119,21 +120,37 @@ export class Game {
     set interface(i) {
         __classPrivateFieldSet(this, _Game_userInterface, i, "f");
     }
+    // métodos de la clase Game
+    // related to: key
     isValidLetter(code) {
         return __classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) && __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE;
     }
+    // related to: key
     isEnterKey(code) {
         return code == "Enter";
     }
+    // related to: key
     isBackspaceKey(code) {
         return code == "Backspace";
     }
+    /**
+     * Toma un código como entrada y devuelve una letra como salida, según algunas reglas de transformación.
+     *
+     * letter = code.split("y")[1]: Divide la cadena code en partes usando el carácter "y" como separador (split("y")).
+     * Luego, toma la segunda parte ([1]) del resultado y la asigna a la variable letter. Esto significa que si el código
+     * no es "Semicolon", se espera que tenga el formato "algo_y_letra". Por lo tanto, la letra se extraerá de la parte
+     * después de "y".
+     */
     transformCodeToLetter(code) {
         let letter = "";
-        if (code == "Semicolon")
+        if (code == "Semicolon") {
             letter = "Ñ";
-        else
+        }
+        else {
             letter = code.split("y")[1];
+            console.log("letter: " + letter);
+        }
+        ;
         return letter;
     }
     newLetter(code) {
@@ -152,6 +169,7 @@ export class Game {
             location.assign("/loser");
         }
     }
+    // related to: key
     enterPressed() {
         if (__classPrivateFieldGet(this, _Game_actualWord, "f").length == MAX_WORD_SIZE) {
             this.checkWordIsRight();
@@ -159,13 +177,16 @@ export class Game {
             this.updateAfterANewWord();
         }
     }
+    // related to: key
     backspacePressed() {
         if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
             __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
             __classPrivateFieldGet(this, _Game_userInterface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
         }
     }
+    // related to: key
     newKeyPressed(code) {
+        console.log(code);
         if (this.isValidLetter(code))
             this.newLetter(code);
         if (this.isEnterKey(code))
