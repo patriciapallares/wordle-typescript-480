@@ -97,19 +97,23 @@ export class Game {
         return letter;
     }
 
+    // related to: word
     newLetter(code: string):void{
         let letter: string = this.transformCodeToLetter(code);
         this.#userInterface.setNewLetter(this.turn, this.actualPosition, letter);
         this.#actualPosition = this.#actualPosition + 1;
         this.#actualWord += letter;
+        console.log("actualWord:" + this.#actualWord);
     }
 
+    // related to: word
     checkWordIsRight():void{
         if (this.#actualWord == this.#pickedWord){
             location.assign("/winner");
         }
     }
 
+    // related to: word
     checkRightLetters = ():void=>{
         for(let i=0; i<MAX_WORD_SIZE; i++){
             if (this.#pickedWord[i]==this.#actualWord[i]){
@@ -117,7 +121,7 @@ export class Game {
             }
         }
     }
-
+    // related to: word
     checkMisplacedLetters = ():void=> {
         let actualLetter: string = "";
         let pattern: RegExp;
@@ -147,7 +151,7 @@ export class Game {
             
         }
     }
-
+    // related to: word
     checkWrongLetters = ():void=>{
         let actualLetter = "";
         let pattern:RegExp;
@@ -160,6 +164,7 @@ export class Game {
         }
     }
 
+    
     updateAfterANewWord = ():void=>{
         this.checkRightLetters();
         this.checkMisplacedLetters();
@@ -192,11 +197,14 @@ export class Game {
     // related to: key
     newKeyPressed(code: string):void{ 
         console.log(code);
-        
+        // si es una letra válida:
         if (this.isValidLetter(code)) this.newLetter(code);
+        // si es enter
         if (this.isEnterKey(code)) this.enterPressed();
+        // si es la tecla de borrar
         if (this.isBackspaceKey(code)) this.backspacePressed();
-        this.#userInterface.changeBackgroundKey(code);
+        // Pendiente seguir corrigiendo
+        //  this.#userInterface.changeBackgroundKey(code);
     }
 
     

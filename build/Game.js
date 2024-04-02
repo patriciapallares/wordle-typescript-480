@@ -20,6 +20,7 @@ export class Game {
         _Game_actualPosition.set(this, void 0);
         _Game_validLetterCodes.set(this, void 0);
         _Game_userInterface.set(this, void 0);
+        // related to: word
         this.checkRightLetters = () => {
             for (let i = 0; i < MAX_WORD_SIZE; i++) {
                 if (__classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
@@ -27,6 +28,7 @@ export class Game {
                 }
             }
         };
+        // related to: word
         this.checkMisplacedLetters = () => {
             let actualLetter = "";
             let pattern;
@@ -56,6 +58,7 @@ export class Game {
                     __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
             }
         };
+        // related to: word
         this.checkWrongLetters = () => {
             let actualLetter = "";
             let pattern;
@@ -153,12 +156,15 @@ export class Game {
         ;
         return letter;
     }
+    // related to: word
     newLetter(code) {
         let letter = this.transformCodeToLetter(code);
         __classPrivateFieldGet(this, _Game_userInterface, "f").setNewLetter(this.turn, this.actualPosition, letter);
         __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") + 1, "f");
         __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f") + letter, "f");
+        console.log("actualWord:" + __classPrivateFieldGet(this, _Game_actualWord, "f"));
     }
+    // related to: word
     checkWordIsRight() {
         if (__classPrivateFieldGet(this, _Game_actualWord, "f") == __classPrivateFieldGet(this, _Game_pickedWord, "f")) {
             location.assign("/winner");
@@ -187,13 +193,17 @@ export class Game {
     // related to: key
     newKeyPressed(code) {
         console.log(code);
+        // si es una letra válida:
         if (this.isValidLetter(code))
             this.newLetter(code);
+        // si es enter
         if (this.isEnterKey(code))
             this.enterPressed();
+        // si es la tecla de borrar
         if (this.isBackspaceKey(code))
             this.backspacePressed();
-        __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(code);
+        // Pendiente seguir corrigiendo
+        //  this.#userInterface.changeBackgroundKey(code);
     }
 }
 _Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_userInterface = new WeakMap();

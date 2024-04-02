@@ -9,26 +9,18 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _Word_words;
-export class Word {
-    constructor(wordsArray) {
-        _Word_words.set(this, void 0);
-        __classPrivateFieldSet(this, _Word_words, wordsArray, "f");
+var _Letter_validLetterCodes;
+export class Letter {
+    constructor(pickedWord) {
+        _Letter_validLetterCodes.set(this, void 0);
+        __classPrivateFieldSet(this, _Letter_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
     }
-    get words() {
-        return __classPrivateFieldGet(this, _Word_words, "f");
+    get validLetterCodes() {
+        return __classPrivateFieldGet(this, _Letter_validLetterCodes, "f");
     }
-    set words(wordsArray) {
-        __classPrivateFieldSet(this, _Word_words, wordsArray, "f");
-    }
-    /**
-     *
-     * @returns palabra aleatoria de un conjunto de palabras almacenadas en un array
-     */
-    getRandomWord() {
-        const min = 0;
-        const max = __classPrivateFieldGet(this, _Word_words, "f").length - 1;
-        return __classPrivateFieldGet(this, _Word_words, "f")[Math.trunc(Math.random() * (max - min + 1))];
+    set validLetterCodes(letters) {
+        __classPrivateFieldSet(this, _Letter_validLetterCodes, letters, "f");
     }
 }
-_Word_words = new WeakMap();
+_Letter_validLetterCodes = new WeakMap();
+// PENDIENTE BORRAR

@@ -14,7 +14,7 @@ export class Word {
 
     /**
      * 
-     * @returns palabra aleatoria de un conjunto de palabras almacenadas en un arreglo
+     * @returns palabra aleatoria de un conjunto de palabras almacenadas en un array
      */
     
     getRandomWord():string {
@@ -22,4 +22,6 @@ export class Word {
         const max = this.#words.length-1;
         return this.#words[Math.trunc(Math.random() * (max - min + 1))]
     }
+    // Quizá aquí debería haber más métodos relacionados
+    
 }
