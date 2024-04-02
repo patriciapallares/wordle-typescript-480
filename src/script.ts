@@ -1,15 +1,20 @@
-import {Word} from "./Word.js";
+import {Words} from "./Words.js";
 import {Game} from "./Game.js";
+import { UIChanger } from "./UIChanger.js";
+
 
 // related to: word
-const wordsCollection: Word = new Word(["JUEGO", "TALAR", "BAILE", "ANDAR", "MONTE", "PLAYA", "PLATA", "ARBOL", "QUESO"]);
+const wordsCollection: Words = new Words(["JUEGO", "TALAR", "BAILE", "ANDAR", "MONTE", "PLAYA", "PLATA", "ARBOL", "QUESO"]);
+ 
 // related to: word
 const pickedWord: string = wordsCollection.getRandomWord();
 
 console.log(pickedWord);
 
+const cambiador: UIChanger = new UIChanger();
+
 // inicia el juego con la palabra seleccionada
-const game: Game = new Game(pickedWord);
+const game: Game = new Game(pickedWord, cambiador);
 
 
 // related to: key clicked

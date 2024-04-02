@@ -9,18 +9,28 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _Letter_validLetterCodes;
+var _Letter_letter;
 export class Letter {
-    constructor(pickedWord) {
-        _Letter_validLetterCodes.set(this, void 0);
-        __classPrivateFieldSet(this, _Letter_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
+    constructor(code) {
+        _Letter_letter.set(this, "");
+        __classPrivateFieldSet(this, _Letter_letter, this.transformCodeToLetter(code), "f");
+        console.log("LetraCONSTRUIDA: " + __classPrivateFieldGet(this, _Letter_letter, "f"));
     }
-    get validLetterCodes() {
-        return __classPrivateFieldGet(this, _Letter_validLetterCodes, "f");
+    transformCodeToLetter(code) {
+        let letter = "";
+        if (code === "Semicolon") {
+            letter = "Ñ";
+        }
+        else {
+            letter = code.split("y")[1];
+        }
+        return letter;
     }
-    set validLetterCodes(letters) {
-        __classPrivateFieldSet(this, _Letter_validLetterCodes, letters, "f");
+    get letter() {
+        return __classPrivateFieldGet(this, _Letter_letter, "f");
+    }
+    set letter(value) {
+        __classPrivateFieldSet(this, _Letter_letter, value, "f");
     }
 }
-_Letter_validLetterCodes = new WeakMap();
-// PENDIENTE BORRAR
+_Letter_letter = new WeakMap();

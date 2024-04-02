@@ -1,4 +1,4 @@
-export class Word {
+export class Words {
 
     #words: string[];
     constructor(wordsArray: string[]){

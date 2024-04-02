@@ -11,9 +11,9 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _Game_pickedWord, _Game_actualWord, _Game_turn, _Game_actualPosition, _Game_validLetterCodes, _Game_userInterface;
 import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./env.js";
-import { UIChanger } from "./UIChanger.js";
+import { Letter } from "./Letter.js";
 export class Game {
-    constructor(pickedWord) {
+    constructor(pickedWord, cambiador) {
         _Game_pickedWord.set(this, void 0);
         _Game_actualWord.set(this, void 0);
         _Game_turn.set(this, void 0);
@@ -116,8 +116,7 @@ export class Game {
             "KeyM",
             "Semicolon",
         ], "f");
-        // No se debería instanciar aquí. Debería ser en script.ts y pasarlo por parámetro
-        __classPrivateFieldSet(this, _Game_userInterface, new UIChanger(), "f");
+        __classPrivateFieldSet(this, _Game_userInterface, cambiador, "f");
     }
     get pickedWord() {
         return __classPrivateFieldGet(this, _Game_pickedWord, "f");
@@ -164,23 +163,26 @@ export class Game {
      * no es "Semicolon", se espera que tenga el formato "algo_y_letra". Por lo tanto, la letra se extraerá de la parte
      * después de "y".
      */
-    transformCodeToLetter(code) {
-        let letter = "";
-        if (code == "Semicolon") {
-            letter = "Ñ";
-        }
-        else {
-            letter = code.split("y")[1];
-            console.log("letter: " + letter);
-        }
-        return letter;
+    /*
+    transformCodeToLetter(code: string): string {
+      let letter: string = "";
+      if (code == "Semicolon") {
+        letter = "Ñ";
+      } else {
+        letter = code.split("y")[1];
+        console.log("letter: " + letter);
+      }
+      return letter;
     }
+    */
     // related to: word
     newLetter(code) {
-        let letter = this.transformCodeToLetter(code);
-        __classPrivateFieldGet(this, _Game_userInterface, "f").setNewLetter(this.turn, this.actualPosition, letter);
+        let letra = new Letter(code);
+        console.log("LetraCONST: " + letra.letter);
+        // let letter: string = this.transformCodeToLetter(code);
+        __classPrivateFieldGet(this, _Game_userInterface, "f").setNewLetter(this.turn, this.actualPosition, letra.letter);
         __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") + 1, "f");
-        __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f") + letter, "f");
+        __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f") + letra.letter, "f");
         console.log("actualWord:" + __classPrivateFieldGet(this, _Game_actualWord, "f"));
     }
     // related to: word

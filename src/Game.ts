@@ -1,4 +1,5 @@
 import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./env.js";
+import { Letter } from "./Letter.js";
 import { UIChanger } from "./UIChanger.js";
 
 export class Game {
@@ -8,7 +9,7 @@ export class Game {
   #actualPosition: number;
   #validLetterCodes: string[];
   #userInterface: UIChanger;
-  constructor(pickedWord: string) {
+  constructor(pickedWord: string, cambiador: UIChanger) {
     this.#pickedWord = pickedWord;
     this.#actualWord = "";
     this.#turn = 1;
@@ -42,8 +43,7 @@ export class Game {
       "KeyM",
       "Semicolon",
     ];
-    // No se debería instanciar aquí. Debería ser en script.ts y pasarlo por parámetro
-    this.#userInterface = new UIChanger();
+    this.#userInterface = cambiador;
   }
 
   get pickedWord() {
@@ -98,6 +98,8 @@ export class Game {
    * no es "Semicolon", se espera que tenga el formato "algo_y_letra". Por lo tanto, la letra se extraerá de la parte
    * después de "y".
    */
+
+  /*
   transformCodeToLetter(code: string): string {
     let letter: string = "";
     if (code == "Semicolon") {
@@ -108,13 +110,18 @@ export class Game {
     }
     return letter;
   }
+  */
 
   // related to: word
   newLetter(code: string): void {
-    let letter: string = this.transformCodeToLetter(code);
-    this.#userInterface.setNewLetter(this.turn, this.actualPosition, letter);
+    let letra: Letter = new Letter(code);
+    console.log("LetraCONST: " + letra.letter);
+
+    // let letter: string = this.transformCodeToLetter(code);
+
+    this.#userInterface.setNewLetter(this.turn, this.actualPosition, letra.letter);
     this.#actualPosition = this.#actualPosition + 1;
-    this.#actualWord += letter;
+    this.#actualWord += letra.letter;
     console.log("actualWord:" + this.#actualWord);
   }
 
@@ -231,8 +238,11 @@ export class Game {
   newKeyPressed(code: string): void {
     console.log(code);
     // si es una letra válida:
-    if (this.#validLetterCodes.includes(code) &&
-    this.#actualPosition < MAX_WORD_SIZE) this.newLetter(code);
+    if (
+      this.#validLetterCodes.includes(code) &&
+      this.#actualPosition < MAX_WORD_SIZE
+    )
+      this.newLetter(code);
     // si es enter
     if (code == "Enter") this.enterPressed();
     // si es la tecla de borrar
