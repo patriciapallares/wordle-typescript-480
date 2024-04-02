@@ -40,8 +40,10 @@ export class Game {
                 isMisplacedLetter = true;
                 actualLetter = __classPrivateFieldGet(this, _Game_actualWord, "f")[i];
                 pattern = new RegExp(actualLetter, "g");
-                numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
-                numberOfCoincidencesActualWord = (__classPrivateFieldGet(this, _Game_actualWord, "f").match(pattern) || []).length;
+                numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || [])
+                    .length;
+                numberOfCoincidencesActualWord = (__classPrivateFieldGet(this, _Game_actualWord, "f").match(pattern) || [])
+                    .length;
                 differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
                 if (differenceOfCoincidences == 1) {
                     for (let j = 0; j < MAX_WORD_SIZE; j++) {
@@ -51,7 +53,8 @@ export class Game {
                         }
                     }
                 }
-                if (differenceOfCoincidences == 0 && __classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
+                if (differenceOfCoincidences == 0 &&
+                    __classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
                     isMisplacedLetter = false;
                 }
                 if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter)
@@ -66,7 +69,8 @@ export class Game {
             for (let i = 0; i < MAX_WORD_SIZE; i++) {
                 actualLetter = __classPrivateFieldGet(this, _Game_actualWord, "f")[i];
                 pattern = new RegExp(actualLetter, "g");
-                numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
+                numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || [])
+                    .length;
                 if (numberOfCoincidencesPickedWord == 0)
                     __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "wrongLetter");
             }
@@ -83,7 +87,35 @@ export class Game {
         __classPrivateFieldSet(this, _Game_actualWord, "", "f");
         __classPrivateFieldSet(this, _Game_turn, 1, "f");
         __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
-        __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
+        __classPrivateFieldSet(this, _Game_validLetterCodes, [
+            "KeyQ",
+            "KeyW",
+            "KeyE",
+            "KeyR",
+            "KeyT",
+            "KeyY",
+            "KeyU",
+            "KeyI",
+            "KeyO",
+            "KeyP",
+            "KeyA",
+            "KeyS",
+            "KeyD",
+            "KeyF",
+            "KeyG",
+            "KeyH",
+            "KeyJ",
+            "KeyK",
+            "KeyL",
+            "KeyZ",
+            "KeyX",
+            "KeyC",
+            "KeyV",
+            "KeyB",
+            "KeyN",
+            "KeyM",
+            "Semicolon",
+        ], "f");
         // No se debería instanciar aquí. Debería ser en script.ts y pasarlo por parámetro
         __classPrivateFieldSet(this, _Game_userInterface, new UIChanger(), "f");
     }
@@ -124,18 +156,6 @@ export class Game {
         __classPrivateFieldSet(this, _Game_userInterface, i, "f");
     }
     // métodos de la clase Game
-    // related to: key
-    isValidLetter(code) {
-        return __classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) && __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE;
-    }
-    // related to: key
-    isEnterKey(code) {
-        return code == "Enter";
-    }
-    // related to: key
-    isBackspaceKey(code) {
-        return code == "Backspace";
-    }
     /**
      * Toma un código como entrada y devuelve una letra como salida, según algunas reglas de transformación.
      *
@@ -153,7 +173,6 @@ export class Game {
             letter = code.split("y")[1];
             console.log("letter: " + letter);
         }
-        ;
         return letter;
     }
     // related to: word
@@ -194,13 +213,14 @@ export class Game {
     newKeyPressed(code) {
         console.log(code);
         // si es una letra válida:
-        if (this.isValidLetter(code))
+        if (__classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) &&
+            __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE)
             this.newLetter(code);
         // si es enter
-        if (this.isEnterKey(code))
+        if (code == "Enter")
             this.enterPressed();
         // si es la tecla de borrar
-        if (this.isBackspaceKey(code))
+        if (code == "Backspace")
             this.backspacePressed();
         // Pendiente seguir corrigiendo
         //  this.#userInterface.changeBackgroundKey(code);
