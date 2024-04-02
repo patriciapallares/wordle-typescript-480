@@ -178,7 +178,6 @@ export class Game {
     // related to: word
     newLetter(code) {
         let letra = new Letter(code);
-        console.log("LetraCONST: " + letra.letter);
         // let letter: string = this.transformCodeToLetter(code);
         __classPrivateFieldGet(this, _Game_userInterface, "f").setNewLetter(this.turn, this.actualPosition, letra.letter);
         __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") + 1, "f");
@@ -202,18 +201,23 @@ export class Game {
             this.checkWordIsRight();
             this.checkGameIsOver();
             this.updateAfterANewWord();
+            console.log("Turno: " + this.turn);
+            console.log("Max attempts: " + 6);
         }
     }
     // related to: key
     backspacePressed() {
         if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
+            __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f").slice(0, -1), "f");
+            // this.#actualWord = this.#actualWord.substring(0, this.#actualWord.length - 1);
+            console.log("Backspace: " + __classPrivateFieldGet(this, _Game_actualWord, "f"));
             __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
             __classPrivateFieldGet(this, _Game_userInterface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
         }
     }
     // related to: key
     newKeyPressed(code) {
-        console.log(code);
+        // console.log(code);
         // si es una letra válida:
         if (__classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) &&
             __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE)

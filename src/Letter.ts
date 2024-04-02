@@ -3,7 +3,6 @@ export class Letter {
 
     constructor(code: string) {
         this.#letter = this.transformCodeToLetter(code);
-        console.log("LetraCONSTRUIDA: " + this.#letter);
     }
 
     private transformCodeToLetter(code: string): string {

@@ -115,11 +115,13 @@ export class Game {
   // related to: word
   newLetter(code: string): void {
     let letra: Letter = new Letter(code);
-    console.log("LetraCONST: " + letra.letter);
-
     // let letter: string = this.transformCodeToLetter(code);
 
-    this.#userInterface.setNewLetter(this.turn, this.actualPosition, letra.letter);
+    this.#userInterface.setNewLetter(
+      this.turn,
+      this.actualPosition,
+      letra.letter
+    );
     this.#actualPosition = this.#actualPosition + 1;
     this.#actualWord += letra.letter;
     console.log("actualWord:" + this.#actualWord);
@@ -144,6 +146,7 @@ export class Game {
       }
     }
   };
+
   // related to: word
   checkMisplacedLetters = (): void => {
     let actualLetter: string = "";
@@ -222,13 +225,21 @@ export class Game {
   enterPressed(): void {
     if (this.#actualWord.length == MAX_WORD_SIZE) {
       this.checkWordIsRight();
+
       this.checkGameIsOver();
       this.updateAfterANewWord();
+
+      console.log("Turno: " + this.turn);
+      console.log("Max attempts: " + 6);
     }
   }
   // related to: key
   backspacePressed(): void {
     if (this.#actualPosition > 0) {
+      this.#actualWord = this.#actualWord.slice(0, -1);
+    
+      // this.#actualWord = this.#actualWord.substring(0, this.#actualWord.length - 1);
+      console.log("Backspace: " + this.#actualWord);
       this.#actualPosition -= 1;
       this.#userInterface.deleteLetter(this.#turn, this.#actualPosition);
     }
@@ -236,7 +247,7 @@ export class Game {
 
   // related to: key
   newKeyPressed(code: string): void {
-    console.log(code);
+    // console.log(code);
     // si es una letra válida:
     if (
       this.#validLetterCodes.includes(code) &&

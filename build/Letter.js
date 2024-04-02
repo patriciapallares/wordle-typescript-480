@@ -14,7 +14,6 @@ export class Letter {
     constructor(code) {
         _Letter_letter.set(this, "");
         __classPrivateFieldSet(this, _Letter_letter, this.transformCodeToLetter(code), "f");
-        console.log("LetraCONSTRUIDA: " + __classPrivateFieldGet(this, _Letter_letter, "f"));
     }
     transformCodeToLetter(code) {
         let letter = "";
