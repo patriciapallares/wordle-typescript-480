@@ -97,35 +97,9 @@ export class Game {
     this.#arrayOfCodes = codes;
   }
 
-  // métodos de la clase Game
-
-  /**
-   * Toma un código como entrada y devuelve una letra como salida, según algunas reglas de transformación.
-   *
-   * letter = code.split("y")[1]: Divide la cadena code en partes usando el carácter "y" como separador (split("y")).
-   * Luego, toma la segunda parte ([1]) del resultado y la asigna a la variable letter. Esto significa que si el código
-   * no es "Semicolon", se espera que tenga el formato "algo_y_letra". Por lo tanto, la letra se extraerá de la parte
-   * después de "y".
-   */
-
-  /*
-  transformCodeToLetter(code: string): string {
-    let letter: string = "";
-    if (code == "Semicolon") {
-      letter = "Ñ";
-    } else {
-      letter = code.split("y")[1];
-      console.log("letter: " + letter);
-    }
-    return letter;
-  }
-  */
-
   // related to: word
   newLetter(code: string): void {
     let letra: Letter = new Letter(code);
-    // let letter: string = this.transformCodeToLetter(code);
-
     this.#userInterface.setNewLetter(
       this.turn,
       this.actualPosition,
@@ -133,7 +107,7 @@ export class Game {
     );
     this.#actualPosition = this.#actualPosition + 1;
     this.#actualWord += letra.letter;
-    console.log("actualWord:" + this.#actualWord);
+    // console.log("actualWord:" + this.#actualWord);
   }
 
   // related to: word
@@ -218,7 +192,6 @@ export class Game {
     this.#actualPosition = 0;
     this.#actualWord = "";
     this.#arrayOfCodes = [];
-    console.log(this.#turn);
   };
 
   checkGameIsOver(): void {
@@ -242,8 +215,8 @@ export class Game {
 
       this.#userInterface.changeBackgroundKey(this.#arrayOfCodes);
 
-      console.log("Turno: " + this.turn);
-      console.log("Max attempts: " + 6);
+      // console.log("Turno: " + this.turn);
+      // console.log("Max attempts: " + 6);
 
       this.updateAfterANewWord();
     }
@@ -269,8 +242,5 @@ export class Game {
 
     if (code == "Enter") this.enterPressed();
     if (code == "Backspace") this.backspacePressed();
-
-    // Pendiente seguir corrigiendo
-    // this.#userInterface.changeBackgroundKey(code);
   }
 }

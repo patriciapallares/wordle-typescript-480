@@ -84,7 +84,6 @@ export class Game {
             __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
             __classPrivateFieldSet(this, _Game_actualWord, "", "f");
             __classPrivateFieldSet(this, _Game_arrayOfCodes, [], "f");
-            console.log(__classPrivateFieldGet(this, _Game_turn, "f"));
         };
         __classPrivateFieldSet(this, _Game_pickedWord, pickedWord, "f");
         __classPrivateFieldSet(this, _Game_actualWord, "", "f");
@@ -164,35 +163,13 @@ export class Game {
     set codes(codes) {
         __classPrivateFieldSet(this, _Game_arrayOfCodes, codes, "f");
     }
-    // métodos de la clase Game
-    /**
-     * Toma un código como entrada y devuelve una letra como salida, según algunas reglas de transformación.
-     *
-     * letter = code.split("y")[1]: Divide la cadena code en partes usando el carácter "y" como separador (split("y")).
-     * Luego, toma la segunda parte ([1]) del resultado y la asigna a la variable letter. Esto significa que si el código
-     * no es "Semicolon", se espera que tenga el formato "algo_y_letra". Por lo tanto, la letra se extraerá de la parte
-     * después de "y".
-     */
-    /*
-    transformCodeToLetter(code: string): string {
-      let letter: string = "";
-      if (code == "Semicolon") {
-        letter = "Ñ";
-      } else {
-        letter = code.split("y")[1];
-        console.log("letter: " + letter);
-      }
-      return letter;
-    }
-    */
     // related to: word
     newLetter(code) {
         let letra = new Letter(code);
-        // let letter: string = this.transformCodeToLetter(code);
         __classPrivateFieldGet(this, _Game_userInterface, "f").setNewLetter(this.turn, this.actualPosition, letra.letter);
         __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") + 1, "f");
         __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f") + letra.letter, "f");
-        console.log("actualWord:" + __classPrivateFieldGet(this, _Game_actualWord, "f"));
+        // console.log("actualWord:" + this.#actualWord);
     }
     checkGameIsOver() {
         if (this.turn > MAX_ATTEMPTS) {
@@ -211,8 +188,8 @@ export class Game {
             this.checkWordIsRight();
             this.checkGameIsOver();
             __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(__classPrivateFieldGet(this, _Game_arrayOfCodes, "f"));
-            console.log("Turno: " + this.turn);
-            console.log("Max attempts: " + 6);
+            // console.log("Turno: " + this.turn);
+            // console.log("Max attempts: " + 6);
             this.updateAfterANewWord();
         }
     }
@@ -235,8 +212,6 @@ export class Game {
             this.enterPressed();
         if (code == "Backspace")
             this.backspacePressed();
-        // Pendiente seguir corrigiendo
-        // this.#userInterface.changeBackgroundKey(code);
     }
 }
 _Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_userInterface = new WeakMap(), _Game_arrayOfCodes = new WeakMap();

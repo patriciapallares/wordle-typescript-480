@@ -26,7 +26,6 @@ export class UIChanger {
     }
 */
     changeBackgroundKey(codes: string[]){
-       
         const keys: any = document.getElementsByClassName("key");
          for (let i = 0; i < codes.length; i++) {
              const element = codes[i];
