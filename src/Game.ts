@@ -9,6 +9,7 @@ export class Game {
   #actualPosition: number;
   #validLetterCodes: string[];
   #userInterface: UIChanger;
+  #arrayOfCodes: string[] = ["code1", "code2", "code3"];
   constructor(pickedWord: string, cambiador: UIChanger) {
     this.#pickedWord = pickedWord;
     this.#actualWord = "";
@@ -44,6 +45,7 @@ export class Game {
       "Semicolon",
     ];
     this.#userInterface = cambiador;
+    this.#arrayOfCodes = [];
   }
 
   get pickedWord() {
@@ -128,13 +130,6 @@ export class Game {
   }
 
   // related to: word
-  checkWordIsRight(): void {
-    if (this.#actualWord == this.#pickedWord) {
-      location.assign("/winner");
-    }
-  }
-
-  // related to: word
   checkRightLetters = (): void => {
     for (let i = 0; i < MAX_WORD_SIZE; i++) {
       if (this.#pickedWord[i] == this.#actualWord[i]) {
@@ -188,6 +183,7 @@ export class Game {
         );
     }
   };
+
   // related to: word
   checkWrongLetters = (): void => {
     let actualLetter = "";
@@ -214,6 +210,7 @@ export class Game {
     this.#turn = this.#turn + 1;
     this.#actualPosition = 0;
     this.#actualWord = "";
+		 this.#arrayOfCodes = [];
   };
 
   checkGameIsOver(): void {
@@ -221,25 +218,33 @@ export class Game {
       location.assign("/loser");
     }
   }
+
+  // related to: word
+  checkWordIsRight(): void {
+    if (this.#actualWord == this.#pickedWord) {
+      location.assign("/winner");
+    }
+  }
+
   // related to: key
   enterPressed(): void {
     if (this.#actualWord.length == MAX_WORD_SIZE) {
       this.checkWordIsRight();
-
       this.checkGameIsOver();
-      this.updateAfterANewWord();
+      
+
+      this.#userInterface.changeBackgroundKey(this.#arrayOfCodes);
 
       console.log("Turno: " + this.turn);
       console.log("Max attempts: " + 6);
+			
+			this.updateAfterANewWord();
     }
   }
   // related to: key
   backspacePressed(): void {
     if (this.#actualPosition > 0) {
       this.#actualWord = this.#actualWord.slice(0, -1);
-    
-      // this.#actualWord = this.#actualWord.substring(0, this.#actualWord.length - 1);
-      console.log("Backspace: " + this.#actualWord);
       this.#actualPosition -= 1;
       this.#userInterface.deleteLetter(this.#turn, this.#actualPosition);
     }
@@ -247,18 +252,18 @@ export class Game {
 
   // related to: key
   newKeyPressed(code: string): void {
-    // console.log(code);
-    // si es una letra válida:
     if (
       this.#validLetterCodes.includes(code) &&
       this.#actualPosition < MAX_WORD_SIZE
-    )
-      this.newLetter(code);
-    // si es enter
+    ){
+			this.newLetter(code);
+    this.#arrayOfCodes.push(code);
+		}
+      
     if (code == "Enter") this.enterPressed();
-    // si es la tecla de borrar
     if (code == "Backspace") this.backspacePressed();
+
     // Pendiente seguir corrigiendo
-    //  this.#userInterface.changeBackgroundKey(code);
+    // this.#userInterface.changeBackgroundKey(code);
   }
 }

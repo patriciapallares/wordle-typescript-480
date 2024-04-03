@@ -25,4 +25,5 @@ Array.from(document.getElementsByClassName("key")).forEach(element => element.ad
 // related to: key pressed
 document.addEventListener("keydown", (e)=>{
     game.newKeyPressed(e.code);
+    
 });

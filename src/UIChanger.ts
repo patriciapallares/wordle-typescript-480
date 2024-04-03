@@ -15,6 +15,7 @@ export class UIChanger {
         Array.from(document.getElementById(`row_${turn}`)!.children)[position].classList.add(positionClass);
     }
 
+    /*
     changeBackgroundKey(code: string){
        const keys: any = document.getElementsByClassName("key");
        for (let key of keys) {
@@ -23,5 +24,20 @@ export class UIChanger {
             }
        }
     }
+*/
+    changeBackgroundKey(codes: string[]){
+       
+        const keys: any = document.getElementsByClassName("key");
+         for (let i = 0; i < codes.length; i++) {
+             const element = codes[i];
+            
+             for (let key of keys) {
+                 if (key.value == element && element !== "Enter"){
+                     key.classList.add("keyPressed");
+                 }
+            }
+    
+         }
+     }
 
 }
