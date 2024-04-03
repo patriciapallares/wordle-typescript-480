@@ -179,20 +179,13 @@ export class Game {
             location.assign("/loser");
         }
     }
-    // related to: word
-    checkWordIsRight() {
-        if (__classPrivateFieldGet(this, _Game_actualWord, "f") == __classPrivateFieldGet(this, _Game_pickedWord, "f")) {
-            location.assign("/winner");
-        }
-    }
     // related to: key
     enterPressed() {
         if (__classPrivateFieldGet(this, _Game_actualWord, "f").length == MAX_WORD_SIZE) {
-            // this.checkWordIsRight();
             this.checkGameIsOver();
             __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(__classPrivateFieldGet(this, _Game_arrayOfCodes, "f"));
-            console.log("Turno: " + this.turn);
-            console.log("Max attempts: " + 6);
+            // console.log("Turno: " + this.turn);
+            // console.log("Max attempts: " + 6);
             this.updateAfterANewWord();
         }
     }

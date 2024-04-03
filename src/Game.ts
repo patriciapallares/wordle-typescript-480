@@ -202,24 +202,15 @@ export class Game {
     }
   }
 
-  // related to: word
-
-  checkWordIsRight(): void {
-    if (this.#actualWord == this.#pickedWord) {
-      location.assign("/winner");
-    }
-  }
-
   // related to: key
   enterPressed(): void {
     if (this.#actualWord.length == MAX_WORD_SIZE) {
-      // this.checkWordIsRight();
       this.checkGameIsOver();
 
       this.#userInterface.changeBackgroundKey(this.#arrayOfCodes);
 
-      console.log("Turno: " + this.turn);
-      console.log("Max attempts: " + 6);
+      // console.log("Turno: " + this.turn);
+      // console.log("Max attempts: " + 6);
 
       this.updateAfterANewWord();
     }
