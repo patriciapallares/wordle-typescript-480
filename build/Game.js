@@ -169,7 +169,6 @@ export class Game {
         __classPrivateFieldGet(this, _Game_userInterface, "f").setNewLetter(this.turn, this.actualPosition, letra.letter);
         __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") + 1, "f");
         __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f") + letra.letter, "f");
-        // console.log("actualWord:" + this.#actualWord);
     }
     checkGameIsOver() {
         if (__classPrivateFieldGet(this, _Game_actualWord, "f") == __classPrivateFieldGet(this, _Game_pickedWord, "f")) {
@@ -179,13 +178,12 @@ export class Game {
             location.assign("/loser");
         }
     }
+    /* --- --- --- --- --- --- --- --- --- --- */
     // related to: key
     enterPressed() {
         if (__classPrivateFieldGet(this, _Game_actualWord, "f").length == MAX_WORD_SIZE) {
             this.checkGameIsOver();
             __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(__classPrivateFieldGet(this, _Game_arrayOfCodes, "f"));
-            // console.log("Turno: " + this.turn);
-            // console.log("Max attempts: " + 6);
             this.updateAfterANewWord();
         }
     }

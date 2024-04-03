@@ -107,7 +107,6 @@ export class Game {
     );
     this.#actualPosition = this.#actualPosition + 1;
     this.#actualWord += letra.letter;
-    // console.log("actualWord:" + this.#actualWord);
   }
 
   // related to: word
@@ -184,6 +183,15 @@ export class Game {
     }
   };
 
+  checkGameIsOver(): void {
+    if (this.#actualWord == this.#pickedWord) {
+      location.assign("/winner");
+    } else if (this.turn >= MAX_ATTEMPTS) {
+      location.assign("/loser");
+    }
+  }
+
+	
   updateAfterANewWord = (): void => {
     this.checkRightLetters();
     this.checkMisplacedLetters();
@@ -194,24 +202,13 @@ export class Game {
     this.#arrayOfCodes = [];
   };
 
-  checkGameIsOver(): void {
-    if (this.#actualWord == this.#pickedWord) {
-      location.assign("/winner");
-    } else if (this.turn >= MAX_ATTEMPTS) {
-      location.assign("/loser");
-    }
-  }
+	/* --- --- --- --- --- --- --- --- --- --- */
 
   // related to: key
   enterPressed(): void {
     if (this.#actualWord.length == MAX_WORD_SIZE) {
       this.checkGameIsOver();
-
       this.#userInterface.changeBackgroundKey(this.#arrayOfCodes);
-
-      // console.log("Turno: " + this.turn);
-      // console.log("Max attempts: " + 6);
-
       this.updateAfterANewWord();
     }
   }
@@ -233,7 +230,6 @@ export class Game {
       this.newLetter(code);
       this.#arrayOfCodes.push(code);
     }
-
     if (code == "Enter") this.enterPressed();
     if (code == "Backspace") this.backspacePressed();
   }

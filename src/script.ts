@@ -16,7 +16,6 @@ const cambiador: UIChanger = new UIChanger();
 // inicia el juego con la palabra seleccionada
 const game: Game = new Game(pickedWord, cambiador);
 
-
 // related to: key clicked
 Array.from(document.getElementsByClassName("key")).forEach(element => element.addEventListener("click", (e)=>{
     game.newKeyPressed((<HTMLButtonElement>e.target).value);
