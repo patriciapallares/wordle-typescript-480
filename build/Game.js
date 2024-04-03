@@ -20,7 +20,7 @@ export class Game {
         _Game_actualPosition.set(this, void 0);
         _Game_validLetterCodes.set(this, void 0);
         _Game_userInterface.set(this, void 0);
-        _Game_arrayOfCodes.set(this, ["code1", "code2", "code3"]);
+        _Game_arrayOfCodes.set(this, void 0);
         // related to: word
         this.checkRightLetters = () => {
             for (let i = 0; i < MAX_WORD_SIZE; i++) {
@@ -84,6 +84,7 @@ export class Game {
             __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
             __classPrivateFieldSet(this, _Game_actualWord, "", "f");
             __classPrivateFieldSet(this, _Game_arrayOfCodes, [], "f");
+            console.log(__classPrivateFieldGet(this, _Game_turn, "f"));
         };
         __classPrivateFieldSet(this, _Game_pickedWord, pickedWord, "f");
         __classPrivateFieldSet(this, _Game_actualWord, "", "f");
@@ -157,6 +158,12 @@ export class Game {
     set interface(i) {
         __classPrivateFieldSet(this, _Game_userInterface, i, "f");
     }
+    get codes() {
+        return __classPrivateFieldGet(this, _Game_arrayOfCodes, "f");
+    }
+    set codes(codes) {
+        __classPrivateFieldSet(this, _Game_arrayOfCodes, codes, "f");
+    }
     // métodos de la clase Game
     /**
      * Toma un código como entrada y devuelve una letra como salida, según algunas reglas de transformación.
@@ -188,7 +195,7 @@ export class Game {
         console.log("actualWord:" + __classPrivateFieldGet(this, _Game_actualWord, "f"));
     }
     checkGameIsOver() {
-        if (this.turn == MAX_ATTEMPTS) {
+        if (this.turn > MAX_ATTEMPTS) {
             location.assign("/loser");
         }
     }

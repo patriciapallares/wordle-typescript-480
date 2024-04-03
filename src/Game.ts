@@ -9,7 +9,7 @@ export class Game {
   #actualPosition: number;
   #validLetterCodes: string[];
   #userInterface: UIChanger;
-  #arrayOfCodes: string[] = ["code1", "code2", "code3"];
+  #arrayOfCodes: string[];
   constructor(pickedWord: string, cambiador: UIChanger) {
     this.#pickedWord = pickedWord;
     this.#actualWord = "";
@@ -88,6 +88,13 @@ export class Game {
   }
   set interface(i) {
     this.#userInterface = i;
+  }
+  get codes(): string[] {
+    return this.#arrayOfCodes;
+  }
+
+  set codes(codes: string[]) {
+    this.#arrayOfCodes = codes;
   }
 
   // métodos de la clase Game
@@ -210,11 +217,12 @@ export class Game {
     this.#turn = this.#turn + 1;
     this.#actualPosition = 0;
     this.#actualWord = "";
-		 this.#arrayOfCodes = [];
+    this.#arrayOfCodes = [];
+    console.log(this.#turn);
   };
 
   checkGameIsOver(): void {
-    if (this.turn == MAX_ATTEMPTS) {
+    if (this.turn > MAX_ATTEMPTS) {
       location.assign("/loser");
     }
   }
@@ -231,14 +239,13 @@ export class Game {
     if (this.#actualWord.length == MAX_WORD_SIZE) {
       this.checkWordIsRight();
       this.checkGameIsOver();
-      
 
       this.#userInterface.changeBackgroundKey(this.#arrayOfCodes);
 
       console.log("Turno: " + this.turn);
       console.log("Max attempts: " + 6);
-			
-			this.updateAfterANewWord();
+
+      this.updateAfterANewWord();
     }
   }
   // related to: key
@@ -255,11 +262,11 @@ export class Game {
     if (
       this.#validLetterCodes.includes(code) &&
       this.#actualPosition < MAX_WORD_SIZE
-    ){
-			this.newLetter(code);
-    this.#arrayOfCodes.push(code);
-		}
-      
+    ) {
+      this.newLetter(code);
+      this.#arrayOfCodes.push(code);
+    }
+
     if (code == "Enter") this.enterPressed();
     if (code == "Backspace") this.backspacePressed();
 
