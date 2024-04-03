@@ -195,12 +195,15 @@ export class Game {
   };
 
   checkGameIsOver(): void {
-    if (this.turn > MAX_ATTEMPTS) {
+    if (this.#actualWord == this.#pickedWord) {
+      location.assign("/winner");
+    } else if (this.turn >= MAX_ATTEMPTS) {
       location.assign("/loser");
     }
   }
 
   // related to: word
+
   checkWordIsRight(): void {
     if (this.#actualWord == this.#pickedWord) {
       location.assign("/winner");
@@ -210,13 +213,13 @@ export class Game {
   // related to: key
   enterPressed(): void {
     if (this.#actualWord.length == MAX_WORD_SIZE) {
-      this.checkWordIsRight();
+      // this.checkWordIsRight();
       this.checkGameIsOver();
 
       this.#userInterface.changeBackgroundKey(this.#arrayOfCodes);
 
-      // console.log("Turno: " + this.turn);
-      // console.log("Max attempts: " + 6);
+      console.log("Turno: " + this.turn);
+      console.log("Max attempts: " + 6);
 
       this.updateAfterANewWord();
     }

@@ -172,7 +172,10 @@ export class Game {
         // console.log("actualWord:" + this.#actualWord);
     }
     checkGameIsOver() {
-        if (this.turn > MAX_ATTEMPTS) {
+        if (__classPrivateFieldGet(this, _Game_actualWord, "f") == __classPrivateFieldGet(this, _Game_pickedWord, "f")) {
+            location.assign("/winner");
+        }
+        else if (this.turn >= MAX_ATTEMPTS) {
             location.assign("/loser");
         }
     }
@@ -185,11 +188,11 @@ export class Game {
     // related to: key
     enterPressed() {
         if (__classPrivateFieldGet(this, _Game_actualWord, "f").length == MAX_WORD_SIZE) {
-            this.checkWordIsRight();
+            // this.checkWordIsRight();
             this.checkGameIsOver();
             __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(__classPrivateFieldGet(this, _Game_arrayOfCodes, "f"));
-            // console.log("Turno: " + this.turn);
-            // console.log("Max attempts: " + 6);
+            console.log("Turno: " + this.turn);
+            console.log("Max attempts: " + 6);
             this.updateAfterANewWord();
         }
     }
