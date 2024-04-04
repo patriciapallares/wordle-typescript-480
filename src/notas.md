@@ -5,6 +5,7 @@ Errores
     [] Debería pintarse del color del caso en la cuadrícula (verde, naranja o gris)
     [x] Ganar en el último turno es sinónimo de perder ¿?
     [x] Si borras la última letra se envía igualmente
+    [] Palabra ARBOL. Entrada: AAAAA. Muestra la primera correcta y las otras 4 naranja¿?
 
 Approach
 
